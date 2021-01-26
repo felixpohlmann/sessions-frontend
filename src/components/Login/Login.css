@@ -1,0 +1,9 @@
+.row__main {
+  height: 100vh;
+}
+
+.wrapper__form {
+  background-color: var(--white);
+  height: 100%;
+  box-shadow: 5px 0 25px rgba(0, 0, 0, 0.125);
+}
