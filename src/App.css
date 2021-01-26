@@ -10,3 +10,16 @@
   height: 100vh;
   background-color: var(--light-grey);
 }
+
+.btn-primary {
+  background-color: #6c63ff;
+  border: #655ef4;
+}
+
+.btn-primary:hover {
+  background-color: #655ef4;
+}
+
+.btn-primary:active {
+  background-color: #655ef4;
+}

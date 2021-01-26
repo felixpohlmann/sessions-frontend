@@ -6,6 +6,9 @@
   background-color: var(--white);
   height: 100%;
   box-shadow: 5px 0 25px rgba(0, 0, 0, 0.125);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .wrapper__illustration {
@@ -17,3 +20,8 @@
 .illustration {
   width: 80%;
 }
+
+.form__input {
+  margin: 1rem 0 1rem 0;
+}
+
