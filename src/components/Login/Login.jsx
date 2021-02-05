@@ -41,13 +41,20 @@ class Login extends Component {
     console.log(response.headers);
   };
 
+  //temporary calls
+
   getSecretData = async () => {
     const response = await axios.get("http://localhost:5000/api/posts");
     console.log(response);
   };
 
+  handleLogout = async () => {
+    const response = await axios.get("http://localhost:5000/api/auth/signout");
+    console.log(response);
+  };
+
   render() {
-    const { handleChange, handleSubmit, getSecretData } = this;
+    const { handleChange, handleSubmit, getSecretData, handleLogout } = this;
 
     return (
       <Container fluid>
@@ -98,6 +105,9 @@ class Login extends Component {
                     onClick={getSecretData}
                   >
                     GET SECRET DATA
+                  </Button>
+                  <Button style={{ marginLeft: "1rem" }} onClick={handleLogout}>
+                    Sign out
                   </Button>
                 </Col>
               </Row>
