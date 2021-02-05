@@ -7,17 +7,12 @@ import "./global/colors.css";
 import "./App.css";
 
 class App extends Component {
-  state = { token: "" };
-
-  handleTokenSet = (token) => {
-    this.setState({ token });
-  };
+  state = {};
 
   render() {
-    const { handleTokenSet } = this;
     return (
       <div className="app">
-        <Login onTokenSet={handleTokenSet} />
+        <Login />
       </div>
     );
   }

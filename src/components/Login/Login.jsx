@@ -14,6 +14,9 @@ import authenticationIllustration from "./authentication.svg";
 
 import "./Login.css";
 
+//axios configuration
+axios.defaults.withCredentials = true;
+
 class Login extends Component {
   state = {
     inputUsername: null,
@@ -27,18 +30,24 @@ class Login extends Component {
 
   handleSubmit = async () => {
     const { inputPassword, inputUsername } = this.state;
-    const { onTokenSet } = this.props;
-    const response = await axios.post("http://localhost:5000/api/auth/signin", {
-      username: inputUsername,
-      password: inputPassword,
-    });
-    if (response.status === 200) {
-      onTokenSet(response.data.token);
-    }
+    const response = await axios.post(
+      "http://localhost:5000/api/auth/signin",
+
+      {
+        username: inputUsername,
+        password: inputPassword,
+      }
+    );
+    console.log(response.headers);
+  };
+
+  getSecretData = async () => {
+    const response = await axios.get("http://localhost:5000/api/posts");
+    console.log(response);
   };
 
   render() {
-    const { handleChange, handleSubmit } = this;
+    const { handleChange, handleSubmit, getSecretData } = this;
 
     return (
       <Container fluid>
@@ -83,6 +92,12 @@ class Login extends Component {
 
                   <Button className="form__button" onClick={handleSubmit}>
                     Sign In
+                  </Button>
+                  <Button
+                    style={{ marginLeft: "1rem" }}
+                    onClick={getSecretData}
+                  >
+                    GET SECRET DATA
                   </Button>
                 </Col>
               </Row>
