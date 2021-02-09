@@ -19,4 +19,13 @@ async function logout() {
   console.log("Logout-Response: ", response);
 }
 
-export default { login, logout };
+async function checkAuth() {
+  const response = await axios.get("http://localhost:5000/api/auth/checkauth");
+  if (response.data.auth) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+export default { login, logout, checkAuth };

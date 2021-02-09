@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
+//services
+import authService from "./services/auth.service";
+
 //components
 import Dashboard from "./components/Dashboard/Dashboard";
 import Login from "./components/Login/Login";
@@ -11,7 +14,14 @@ import "./global/colors.css";
 import "./App.css";
 
 class App extends Component {
-  state = {};
+  state = {
+    isAuthenticated: false,
+  };
+
+  async componentDidMount() {
+    const checkAuth = await authService.checkAuth();
+    this.setState({ isAuthenticated: checkAuth });
+  }
 
   render() {
     return (
