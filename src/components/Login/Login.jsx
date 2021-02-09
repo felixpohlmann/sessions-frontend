@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+//services
+import authService from "../../services/auth.service";
+
+//components
 import {
   Container,
   Row,
@@ -8,6 +12,7 @@ import {
   Form,
   InputGroup,
   Button,
+  ProgressBar,
 } from "react-bootstrap/";
 import { AiOutlineUser, AiOutlineKey } from "react-icons/ai";
 import authenticationIllustration from "./authentication.svg";
@@ -21,6 +26,7 @@ class Login extends Component {
   state = {
     inputUsername: null,
     inputPassword: null,
+    isAuthenticated: false,
   };
 
   handleChange = (e) => {
@@ -28,34 +34,26 @@ class Login extends Component {
     this.setState({ [name]: value });
   };
 
-  handleSubmit = async () => {
+  //login
+  handleLogin = async () => {
     const { inputPassword, inputUsername } = this.state;
-    const response = await axios.post(
-      "http://localhost:5000/api/auth/signin",
+    authService.login(inputUsername, inputPassword);
+  };
 
-      {
-        username: inputUsername,
-        password: inputPassword,
-      }
-    );
-    console.log(response.headers);
+  //logout
+  handleLogout = async () => {
+    authService.logout();
   };
 
   //temporary calls
-
   getSecretData = async () => {
     const response = await axios.get("http://localhost:5000/api/posts");
     console.log(response);
   };
 
-  handleLogout = async () => {
-    const response = await axios.get("http://localhost:5000/api/auth/signout");
-    console.log(response);
-  };
-
   render() {
-    const { handleChange, handleSubmit, getSecretData, handleLogout } = this;
-
+    const { handleChange, handleLogin, getSecretData, handleLogout } = this;
+    const { isAuthenticated } = this.state;
     return (
       <Container fluid>
         <Row className="row__main">
@@ -64,6 +62,11 @@ class Login extends Component {
               <Row>
                 <Col className="form__header">
                   <h1>Login</h1>
+                  <ProgressBar
+                    animated
+                    variant={isAuthenticated ? "success" : "danger"}
+                    now={100}
+                  />
                 </Col>
               </Row>
               <Row>
@@ -97,7 +100,7 @@ class Login extends Component {
                     />
                   </InputGroup>
 
-                  <Button className="form__button" onClick={handleSubmit}>
+                  <Button className="form__button" onClick={handleLogin}>
                     Sign In
                   </Button>
                   <Button
