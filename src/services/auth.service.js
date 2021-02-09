@@ -28,4 +28,6 @@ async function checkAuth() {
   }
 }
 
-export default { login, logout, checkAuth };
+const authService = { login, logout, checkAuth };
+
+export default authService;

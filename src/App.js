@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import authService from "./services/auth.service";
 
 //components
-import Dashboard from "./components/Dashboard/Dashboard";
+//import Dashboard from "./components/Dashboard/Dashboard";
 import Login from "./components/Login/Login";
 
 //css
@@ -21,6 +21,7 @@ class App extends Component {
   async componentDidMount() {
     const checkAuth = await authService.checkAuth();
     this.setState({ isAuthenticated: checkAuth });
+    console.log("Authenticated: ", checkAuth);
   }
 
   render() {
@@ -28,7 +29,6 @@ class App extends Component {
       <div className="app">
         <Router>
           <Switch>
-            <Route exact path="/" component={Dashboard} />
             <Route path="/login" component={Login} />
           </Switch>
         </Router>

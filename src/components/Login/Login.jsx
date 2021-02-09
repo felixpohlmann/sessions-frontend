@@ -12,7 +12,6 @@ import {
   Form,
   InputGroup,
   Button,
-  ProgressBar,
 } from "react-bootstrap/";
 import { AiOutlineUser, AiOutlineKey } from "react-icons/ai";
 import authenticationIllustration from "./authentication.svg";
@@ -26,7 +25,6 @@ class Login extends Component {
   state = {
     inputUsername: null,
     inputPassword: null,
-    isAuthenticated: false,
   };
 
   handleChange = (e) => {
@@ -53,7 +51,6 @@ class Login extends Component {
 
   render() {
     const { handleChange, handleLogin, getSecretData, handleLogout } = this;
-    const { isAuthenticated } = this.state;
     return (
       <Container fluid>
         <Row className="row__main">
@@ -62,11 +59,6 @@ class Login extends Component {
               <Row>
                 <Col className="form__header">
                   <h1>Login</h1>
-                  <ProgressBar
-                    animated
-                    variant={isAuthenticated ? "success" : "danger"}
-                    now={100}
-                  />
                 </Col>
               </Row>
               <Row>
