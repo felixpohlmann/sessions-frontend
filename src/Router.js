@@ -35,7 +35,7 @@ const Router = () => {
           isAuthenticated ? (
             <App />
           ) : isLoading ? (
-            <p>Loading...</p>
+            <p>Authenticating...</p>
           ) : (
             <Redirect to="/login" />
           )
