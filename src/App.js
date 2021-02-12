@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 
+//css
+import "./App.css";
+
 //services
 import userService from "./services/user.service";
 
@@ -14,7 +17,11 @@ const App = () => {
     getUsername();
   });
 
-  return <p>Welcome {username}!</p>;
+  return (
+    <div className="app">
+      <h2>Welcome, {username}!</h2>
+    </div>
+  );
 };
 
 export default App;
