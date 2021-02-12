@@ -44,13 +44,9 @@ class Login extends Component {
   };
 
   //temporary calls
-  getSecretData = async () => {
-    const response = await axios.get("http://localhost:5000/api/posts");
-    console.log(response);
-  };
 
   render() {
-    const { handleChange, handleLogin, getSecretData, handleLogout } = this;
+    const { handleChange, handleLogin, handleLogout } = this;
     return (
       <Container fluid>
         <Row className="row__main">
@@ -95,12 +91,7 @@ class Login extends Component {
                   <Button className="form__button" onClick={handleLogin}>
                     Sign In
                   </Button>
-                  <Button
-                    style={{ marginLeft: "1rem" }}
-                    onClick={getSecretData}
-                  >
-                    GET SECRET DATA
-                  </Button>
+
                   <Button style={{ marginLeft: "1rem" }} onClick={handleLogout}>
                     Sign out
                   </Button>
