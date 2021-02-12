@@ -1,44 +1,48 @@
-import React, { Component } from "react";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 
 //components
+import { Redirect, Route, Switch } from "react-router-dom";
 import App from "./App";
 import Login from "./components/Login/Login";
 
 //services
 import authService from "./services/auth.service";
 
-// (global) css
-import "bootstrap/dist/css/bootstrap.min.css";
+//css
+import "bootstrap/dist/css/bootstrap.css";
 import "./global/global.css";
 
-class Router extends Component {
-  state = { authStatus: false };
+const Router = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  async componentDidMount() {
-    const authStatus = await authService.checkAuth();
-    this.setState({ authStatus });
-    console.log("authState: ", authStatus);
-  }
+  useEffect(() => {
+    const checkAuth = async () => {
+      const result = await authService.checkAuth();
+      console.log(result);
+      setIsAuthenticated(result);
+      setIsLoading(false);
+    };
+    checkAuth();
+  });
 
-  render() {
-    const { authStatus } = this.state;
-    return (
-      <BrowserRouter>
-        <Switch>
-          <Route
-            exact
-            path="/"
-            render={() => (authStatus ? <App /> : <Login />)}
-          />
-          <Route
-            path="/login"
-            render={() => (authStatus ? <App /> : <Login />)}
-          />
-        </Switch>
-      </BrowserRouter>
-    );
-  }
-}
+  return (
+    <Switch>
+      <Route path="/login" component={Login} />
+      <Route
+        path="/"
+        render={() =>
+          isAuthenticated ? (
+            <App />
+          ) : isLoading ? (
+            <p>Loading...</p>
+          ) : (
+            <Redirect to="/login" />
+          )
+        }
+      />
+    </Switch>
+  );
+};
 
 export default Router;
