@@ -1,5 +1,6 @@
 import axios from "axios";
 
+//make sure credentials like cookies are included with requests
 axios.defaults.withCredentials = true;
 
 async function login(username, password) {
@@ -11,12 +12,10 @@ async function login(username, password) {
       password,
     }
   );
-  console.log("Login-Response: ", response);
 }
 
 async function logout() {
   const response = await axios.delete("http://localhost:5000/api/auth/signout");
-  console.log("Logout-Response: ", response);
 }
 
 async function checkAuth() {
