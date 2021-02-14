@@ -20,15 +20,13 @@ async function logout() {
 }
 
 async function checkAuth() {
-  /*
-  const response = await axios.get("http://localhost:5000/api/auth/checkauth");
-  if (response.data.auth) {
+  const response = await axios.get("http://localhost:5000/api/auth/");
+  //check if response contains user id, if true, user is logged in / has valid session
+  if (response.data.userId) {
     return true;
   } else {
     return false;
   }
-   */
-  return false;
 }
 
 const authService = { login, logout, checkAuth };
