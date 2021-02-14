@@ -36,10 +36,6 @@ const Login = () => {
     }
   };
 
-  const handleLogout = () => {
-    authService.logout();
-  };
-
   return (
     <Container fluid>
       <Row className="row__main">
@@ -83,14 +79,10 @@ const Login = () => {
                     name="password"
                   />
                 </InputGroup>
-
+                
                 <Button className="form__button" onClick={handleLogin}>
                   Sign In
-                </Button>
-
-                <Button style={{ marginLeft: "1rem" }} onClick={handleLogout}>
-                  Sign out
-                </Button>
+                </Button>   
               </Col>
             </Row>
           </Container>
