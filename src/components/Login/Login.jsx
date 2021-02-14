@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
 
 //services
 import authService from "../../services/auth.service";
@@ -17,9 +16,6 @@ import { AiOutlineUser, AiOutlineKey } from "react-icons/ai";
 import authenticationIllustration from "./authentication.svg";
 
 import "./Login.css";
-
-//axios configuration
-axios.defaults.withCredentials = true;
 
 class Login extends Component {
   state = {
