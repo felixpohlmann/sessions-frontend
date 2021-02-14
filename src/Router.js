@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 //components
 import { Redirect, Route, Switch } from "react-router-dom";
 import App from "./App";
+import Loading from "./components/Loading/Loading";
 import Login from "./components/Login/Login";
 
 //services
@@ -34,7 +35,7 @@ const Router = () => {
           isAuthenticated ? (
             <App />
           ) : isLoading ? (
-            <p>Authenticating...</p>
+            <Loading />
           ) : (
             <Redirect to="/login" />
           )
