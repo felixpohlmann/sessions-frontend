@@ -15,17 +15,20 @@ async function login(username, password) {
 }
 
 async function logout() {
-  const response = await axios.get("http://localhost:5000/api/auth/signout");
+  const response = await axios.delete("http://localhost:5000/api/auth/signout");
   console.log("Logout-Response: ", response);
 }
 
 async function checkAuth() {
+  /*
   const response = await axios.get("http://localhost:5000/api/auth/checkauth");
   if (response.data.auth) {
     return true;
   } else {
     return false;
   }
+   */
+  return false;
 }
 
 const authService = { login, logout, checkAuth };
