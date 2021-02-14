@@ -1,10 +1,12 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 //services
 import authService from "../../services/auth.service";
 
 //components
 import {
+  Alert,
   Container,
   Row,
   Col,
@@ -17,95 +19,92 @@ import authenticationIllustration from "./authentication.svg";
 
 import "./Login.css";
 
-class Login extends Component {
-  state = {
-    inputUsername: null,
-    inputPassword: null,
+const Login = () => {
+  const [username, setUsername] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [loginError, setLoginError] = useState(false);
+
+  const history = useHistory();
+
+  const handleLogin = async () => {
+    const response = await authService.login(username, password);
+    if (response) {
+      // NOT NICE
+      history.push("/");
+    } else {
+      setLoginError(true);
+    }
   };
 
-  handleChange = (e) => {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
-  };
-
-  //login
-  handleLogin = async () => {
-    const { inputPassword, inputUsername } = this.state;
-    authService.login(inputUsername, inputPassword);
-  };
-
-  //logout
-  handleLogout = async () => {
+  const handleLogout = () => {
     authService.logout();
   };
 
-  //temporary calls
+  return (
+    <Container fluid>
+      <Row className="row__main">
+        <Col className="wrapper__form" xs={6}>
+          <Container>
+            <Alert variant="danger" show={loginError}>
+              Invalid credentials!
+            </Alert>
+            <Row>
+              <Col className="form__header">
+                <h1>Login</h1>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <InputGroup className="form__input">
+                  <InputGroup.Prepend>
+                    <InputGroup.Text>
+                      <AiOutlineUser />
+                    </InputGroup.Text>
+                  </InputGroup.Prepend>
+                  <Form.Control
+                    placeholder="Username"
+                    aria-label="Username"
+                    onChange={(e) => setUsername(e.currentTarget.value)}
+                    name="username"
+                  />
+                </InputGroup>
 
-  render() {
-    const { handleChange, handleLogin, handleLogout } = this;
-    return (
-      <Container fluid>
-        <Row className="row__main">
-          <Col className="wrapper__form" xs={6}>
-            <Container>
-              <Row>
-                <Col className="form__header">
-                  <h1>Login</h1>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <InputGroup className="form__input">
-                    <InputGroup.Prepend>
-                      <InputGroup.Text>
-                        <AiOutlineUser />
-                      </InputGroup.Text>
-                    </InputGroup.Prepend>
-                    <Form.Control
-                      placeholder="Username"
-                      aria-label="Username"
-                      onChange={(e) => handleChange(e)}
-                      name="inputUsername"
-                    />
-                  </InputGroup>
+                <InputGroup className="form__input">
+                  <InputGroup.Prepend>
+                    <InputGroup.Text>
+                      <AiOutlineKey />
+                    </InputGroup.Text>
+                  </InputGroup.Prepend>
+                  <Form.Control
+                    type="password"
+                    placeholder="Password"
+                    aria-label="Password"
+                    onChange={(e) => setPassword(e.currentTarget.value)}
+                    name="password"
+                  />
+                </InputGroup>
 
-                  <InputGroup className="form__input">
-                    <InputGroup.Prepend>
-                      <InputGroup.Text>
-                        <AiOutlineKey />
-                      </InputGroup.Text>
-                    </InputGroup.Prepend>
-                    <Form.Control
-                      type="password"
-                      placeholder="Password"
-                      aria-label="Password"
-                      onChange={(e) => handleChange(e)}
-                      name="inputPassword"
-                    />
-                  </InputGroup>
+                <Button className="form__button" onClick={handleLogin}>
+                  Sign In
+                </Button>
 
-                  <Button className="form__button" onClick={handleLogin}>
-                    Sign In
-                  </Button>
-
-                  <Button style={{ marginLeft: "1rem" }} onClick={handleLogout}>
-                    Sign out
-                  </Button>
-                </Col>
-              </Row>
-            </Container>
-          </Col>
-          <Col className="wrapper__illustration" xs={6}>
-            <img
-              className="illustration"
-              src={authenticationIllustration}
-              alt="Authenticate"
-            />
-          </Col>
-        </Row>
-      </Container>
-    );
-  }
-}
+                <Button style={{ marginLeft: "1rem" }} onClick={handleLogout}>
+                  Sign out
+                </Button>
+              </Col>
+            </Row>
+          </Container>
+        </Col>
+        <Col className="wrapper__illustration" xs={6}>
+          <img
+            className="illustration"
+            src={authenticationIllustration}
+            alt="Authenticate"
+          />
+        </Col>
+      </Row>
+    </Container>
+  );
+};
 
 export default Login;

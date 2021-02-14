@@ -4,18 +4,25 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 
 async function login(username, password) {
-  const response = await axios.post(
-    "http://localhost:5000/api/auth/signin",
+  try {
+    const response = await axios.post(
+      "http://localhost:5000/api/auth/signin",
 
-    {
-      username,
-      password,
+      {
+        username,
+        password,
+      }
+    );
+    if (response.status === 200) {
+      return true;
     }
-  );
+  } catch (err) {
+    return false;
+  }
 }
 
-async function logout() {
-  const response = await axios.delete("http://localhost:5000/api/auth/signout");
+function logout() {
+  axios.delete("http://localhost:5000/api/auth/signout");
 }
 
 async function checkAuth() {

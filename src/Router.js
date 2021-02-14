@@ -19,7 +19,6 @@ const Router = () => {
   useEffect(() => {
     const checkAuth = async () => {
       const result = await authService.checkAuth();
-      console.log("AuthService-Result: ", result);
       setIsAuthenticated(result);
       setIsLoading(false);
     };
